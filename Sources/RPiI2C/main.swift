@@ -4,14 +4,15 @@ import SwiftyGPIO
 import PythonKit
 
 print(
-  "RPiI2C Temperature Sensor\n\n".magenta.bold.underline +
+  "RPiI2C + TMP102 Temperature Sensor\n\n".magenta.bold.underline +
     "# Wiring\n\n".cyan.bold +
     """
   | Name            | Physical Pin | BCM Mapping |
   |-----------------|:------------:|:-----------:|
-  | Blue LED        |      12      |     P18     |
-  | HC-SR04 Trigger |      37      |     P26     |
-  | HC-SR04 Echo    |      40      |     P21     |
+  | TMP102 GND      |       9      |     N/A     |
+  | TMP102 1.4-2.6V |       1      |     N/A     |
+  | TMP102 SDA      |       3      |      2      |
+  | TMP102 SCL      |       5      |      3      |
   \n
   """.green +
     "# Logging\n".cyan.bold
@@ -36,33 +37,21 @@ do {
   fatalError("Failed to import python smbus with error: \(error)")
 }
 
-let sys = try Python.import("sys")
-
 let bus = smbus.SMBus(1)
 
 repeat {
-  let data = bus.bus.read_i2c_block_data(0x48, 0)
-  let msb = data[0]
-  let lsb = data[1]
+  do {
+    let data = try bus.read_i2c_block_data.throwing.dynamicallyCall(withArguments: 0x48, 0)
+    
+    let msb = Int(data[0])!
+    let lsb = Int(data[1])!
+    
+    let temperature = Double(((msb << 8) | lsb) >> 4) * 0.0625
+    
+    print("Temperature: \(temperature)ºC")
+  } catch {
+    print("I2C Error: \(error)")
+  }
   
-  print(data)
-  print(msb)
-  print(lsb)
-//  print((((msb << 8) | lsb) >> 4) * 0.0625)
+  sleep(1)
 } while (true)
-
-
-/*
- #!/usr/bin/env python3
- 
- import smbus
- import time
- bus = smbus.SMBus(1)
- data = bus.read_i2c_block_data(0x48, 0)
- msb = data[0]
- lsb = data[1]
- # shift the msb 8 bits to the left and add to lsb
- # then shift number 4 bits to right
- # then multiply by 0.0625
- print((((msb << 8) | lsb) >> 4) * 0.0625) # printout in Celcius
- */
