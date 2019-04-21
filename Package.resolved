@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CommandLineKit",
+        "repositoryURL": "https://github.com/pvieito/CommandLineKit.git",
+        "state": {
+          "branch": "master",
+          "revision": "0987ddc20ac1c6d6ae90daf538d626b977ab1d7a",
+          "version": null
+        }
+      },
+      {
+        "package": "LoggerKit",
+        "repositoryURL": "https://github.com/pvieito/LoggerKit.git",
+        "state": {
+          "branch": "master",
+          "revision": "211004a6607ab7cbd34e3a0176b544147904bbc4",
+          "version": null
+        }
+      },
+      {
+        "package": "PythonTool",
+        "repositoryURL": "https://github.com/pvieito/PythonKit.git",
+        "state": {
+          "branch": "master",
+          "revision": "922f202ac2b03256fb59c18eae857d006a0e9e8d",
+          "version": null
+        }
+      },
+      {
+        "package": "Rainbow",
+        "repositoryURL": "https://github.com/onevcat/Rainbow",
+        "state": {
+          "branch": null,
+          "revision": "9c52c1952e9b2305d4507cf473392ac2d7c9b155",
+          "version": "3.1.5"
+        }
+      },
+      {
+        "package": "SwiftyGPIO",
+        "repositoryURL": "https://github.com/uraimo/SwiftyGPIO.git",
+        "state": {
+          "branch": null,
+          "revision": "7711f55c4d6d5675395bb269c9eb4e952da4f9e8",
+          "version": "1.1.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
